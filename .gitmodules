@@ -1,0 +1,6 @@
+[submodule "exhaustive-grid-search"]
+	path = exhaustive-grid-search
+	url = https://github.com/DavidBoja/exhaustive-grid-search.git
+[submodule "py4dgeo"]
+	path = py4dgeo
+	url = https://github.com/3dgeo-heidelberg/py4dgeo.git
