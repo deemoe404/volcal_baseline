@@ -1,0 +1,13 @@
+laspy
+numpy
+matplotlib
+shapely
+torch
+open3d
+ninja
+notebook
+plotly
+termcolor
+seaborn
+kaleido
+geopandas
