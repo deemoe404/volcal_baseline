@@ -76,8 +76,8 @@ neigh.fit(target)
 avg_spacing = pipeline.estimate_avg_spacing(target)
 print("Estimated average spacing:", avg_spacing)
 
-rotation_z_list = [30, 45]
-translation_list = [5, 10]
+rotation_z_list = [5, 30, 45]
+translation_list = [1, 5, 10]
 
 results_list = []
 
@@ -136,7 +136,7 @@ for super_index in range(len(rotation_z_list)):
                     new_las.z = z_trans
 
                     new_las.write(
-                        f"{log_dir}/radius{i}noise{noise_std_list[j]}_{k}.las"
+                        f"{log_dir}/{super_index}_radius{i}noise{noise_std_list[j]}_{k}.las"
                     )
 
                     start_timestamp = datetime.datetime.now()
@@ -236,11 +236,11 @@ for super_index in range(len(rotation_z_list)):
                     filtered_raw_x, filtered_raw_y, filtered_raw_z = filtered_raw.T
 
                     # Generate DEMs
-                    dem_before, dem_after, dem_grid_x, dem_grid_y = (
+                    dem_before, dem_after, dem_grid_x, dem_grid_y, grid_res = (
                         pipeline.reletive_DEM(
                             filtered_raw,
                             filtered_refined,
-                            grid_res=0.01,
+                            grid_res=None,
                             method="linear",
                             mask_hulls=selected_hulls,
                         )
@@ -251,7 +251,7 @@ for super_index in range(len(rotation_z_list)):
                         pipeline.calculate_volume(
                             dem_before,
                             dem_after,
-                            grid_res=0.01,
+                            grid_res=grid_res,
                             threshold=reg_target_source,
                         )
                     )
