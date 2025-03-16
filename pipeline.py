@@ -727,9 +727,10 @@ def segment_changes(
 def reletive_DEM(
     cloud_1: np.ndarray,
     cloud_2: np.ndarray,
-    grid_res: float = 0.07,
+    grid_res: float = None,
     method: str = "linear",
     mask_hulls: list = None,
+    grid_res_factor: float = 1.0,
 ):
     """
     Generate a pair of Digital Elevation Models (DEMs) from two point clouds.
@@ -743,6 +744,20 @@ def reletive_DEM(
     np.ndarray: First DEM.
     np.ndarray: Second DEM.
     """
+    # Auto-compute grid resolution if not provided
+    if grid_res is None:
+        tree_1 = cKDTree(cloud_1[:, :2])
+        distances_1, _ = tree_1.query(cloud_1[:, :2], k=2)
+        median_nn_1 = np.median(distances_1[:, 1])
+        grid_res_1 = grid_res_factor * median_nn_1
+        
+        tree_2 = cKDTree(cloud_2[:, :2])
+        distances_2, _ = tree_2.query(cloud_2[:, :2], k=2)
+        median_nn_2 = np.median(distances_2[:, 1])
+        grid_res_2 = grid_res_factor * median_nn_2
+        
+        grid_res = max(grid_res_1, grid_res_2)
+
     min_z = min(cloud_1[:, 2].min(), cloud_2[:, 2].min())
     z1_adjusted = cloud_1[:, 2] - min_z
     z2_adjusted = cloud_2[:, 2] - min_z
@@ -770,7 +785,7 @@ def reletive_DEM(
         dem1[~mask_grid] = np.nan
         dem2[~mask_grid] = np.nan
 
-    return dem1, dem2, grid_x, grid_y
+    return dem1, dem2, grid_x, grid_y, grid_res
 
 
 def calculate_volume(
