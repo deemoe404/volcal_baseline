@@ -56,6 +56,20 @@ MAX_ITER = 2048
 
 target = np.column_stack((x, y, z))
 
+avg_spacing = pipeline.estimate_avg_spacing(target)
+print("Estimated average spacing:", avg_spacing)
+
+ref_ratio = 0.01
+init_voxel_size = avg_spacing / ref_ratio
+
+# Adaptively determine the voxel size
+adapted_voxel_size = pipeline.adaptive_voxel_size(target, ref_ratio, init_voxel_size, 25, 15, 1)
+print("Adapted voxel size:", adapted_voxel_size)
+
+search_radi = adapted_voxel_size * 2.0
+
+print("Search radius:", search_radi)
+
 repeat = 5
 radius_list = [5, 10, 15, 20, 25]
 max_depth_list = [3, 6, 9, 12, 15]
@@ -67,7 +81,7 @@ epoch_stabel_before = py4dgeo.Epoch(stable_before)
 epoch_before = py4dgeo.Epoch(target)
 corepoints_pcd = o3d.geometry.PointCloud()
 corepoints_pcd.points = o3d.utility.Vector3dVector(epoch_before.cloud)
-corepoints_pcd = corepoints_pcd.voxel_down_sample(voxel_size=0.1)
+corepoints_pcd = corepoints_pcd.voxel_down_sample(voxel_size=adapted_voxel_size)
 corepoints = np.asarray(corepoints_pcd.points)
 
 neigh = NearestNeighbors(n_neighbors=1)
@@ -189,9 +203,9 @@ for super_index in range(len(rotation_z_list)):
                     m3c2 = py4dgeo.M3C2(
                         epochs=(epoch_stabel_before, epoch_stabel_after),
                         corepoints=epoch_stabel_before.cloud[::],
-                        normal_radii=(0.5,),
-                        cyl_radius=(0.5),
-                        max_distance=(5.0),
+                        normal_radii=(search_radi,),
+                        cyl_radius=(adapted_voxel_size),
+                        max_distance=(15.0),
                         registration_error=(0.0),
                     )
                     m3c2_distances_stableparts, uncertainties_stableparts = m3c2.run()
@@ -205,8 +219,8 @@ for super_index in range(len(rotation_z_list)):
                     m3c2 = py4dgeo.M3C2(
                         epochs=(epoch_before, epoch_after),
                         corepoints=corepoints,
-                        normal_radii=(0.5,),
-                        cyl_radii=(0.5,),
+                        normal_radii=(search_radi,),
+                        cyl_radius=(adapted_voxel_size),
                         max_distance=(15.0),
                         registration_error=(reg_target_source),
                     )
