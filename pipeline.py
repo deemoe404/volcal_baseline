@@ -684,7 +684,7 @@ def segment_changes_knee(cp: np.ndarray, cs: np.ndarray, min_samples: int = 10):
     return hulls
 
 def segment_changes(
-    cp: np.ndarray, cs: np.ndarray, thr: float = 1.0, min_samples: int = 2
+    cp: np.ndarray, cs: np.ndarray, thr: float = -0.2, min_samples: int = 2
 ):
     """
     Segment changes in a point cloud.
