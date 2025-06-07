@@ -427,7 +427,7 @@ def EGS(
             argmaxes.append(torch.argmax(out))
             shapes.append(out.shape)
             
-            # torch.cuda.empty_cache()
+            torch.cuda.empty_cache()
 
     m_index = torch.argmax(torch.stack(maxes))
     ind0, _, ind1, ind2, ind3 = unravel_index_pytorch(
