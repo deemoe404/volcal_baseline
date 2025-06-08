@@ -27,7 +27,7 @@ proc = psutil.Process(os.getpid())
 # ─────────────────────────────────────────────────────────────────────────────
 @dataclass(frozen=True)
 class ExperimentConfig:
-    dataset_root: Path = Path("/home/sam/Documents/datasets/WHU/3-Mountain")
+    dataset_root: Path = Path("../datasets/WHU-TLS/3-Mountain")
     output_root: Path = Path("outputs")
 
     device: torch.device = torch.device("cuda")

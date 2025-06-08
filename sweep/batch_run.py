@@ -18,13 +18,13 @@ log_dir = f"outputs/{datetime.datetime.now().strftime('%Y%m%d-%H%M')}"
 os.makedirs(log_dir, exist_ok=True)
 log_file = open(Path(log_dir) / "running_log.txt", "a")
 
-input_file = "/home/sam/Documents/datasets/WHU/3-Mountain/combined.las"
+input_file = "../datasets/WHU-TLS/3-Mountain/combined.las"
 las = laspy.read(input_file)
 x = las.x
 y = las.y
 z = las.z
 
-shp_file = "/home/sam/Documents/datasets/WHU/3-Mountain/combined_stable.shp"
+shp_file = "../datasets/WHU-TLS/3-Mountain/combined_stable.shp"
 satble_shp = gpd.read_file(shp_file)
 
 center_x = np.mean(x) + 15  # Center x of deformation

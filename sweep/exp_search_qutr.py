@@ -40,14 +40,14 @@ log_file = open(Path(log_dir) / "running_log.txt", "a")
 #  Data loading
 ###############################################################################
 
-input_file = "/home/sam/Documents/datasets/WHU/3-Mountain/combined.las"
+input_file = "../datasets/WHU-TLS/3-Mountain/combined.las"
 las = laspy.read(input_file)
 
 x, y, z = las.x, las.y, las.z
 
 target = np.column_stack((x, y, z))
 
-shp_file = "/home/sam/Documents/datasets/WHU/3-Mountain/combined_stable.shp"
+shp_file = "../datasets/WHU-TLS/3-Mountain/combined_stable.shp"
 stable_shp = gpd.read_file(shp_file)
 
 ###############################################################################
