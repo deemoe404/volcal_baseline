@@ -28,13 +28,13 @@ You can download the pre-processed datasets from the [Internet Archive](https://
 ├── exhaustive-grid-search/    # submodule (coarse alignment)
 ├── py4dgeo/                   # submodule fork (M3C2 implementation)
 ├── datasets/                  # Pre-processed datasets
-|   ├── WHU-TLS
-|   └── Tongjiang_Aerial
+│   ├── WHU-TLS
+│   └── Tongjiang_Aerial
 ├── sweep/
-|   ├── batch_run.py           # Benchmarking script
-|   ├── batch_visualise.py     # Benchmarking visualisation script
-|   ├── exp_*.py               # Ablation study scripts
-|   └── vis_*.py               # Ablation study visualisation scripts
+│   ├── batch_run.py           # Benchmarking script
+│   ├── batch_visualise.py     # Benchmarking visualisation script
+│   ├── exp_*.py               # Ablation study scripts
+│   └── vis_*.py               # Ablation study visualisation scripts
 ├── pipeline.py                # Orchestrates the workflow
 ├── requirements.txt           # core Python deps
 ├── rotation_modifier.ipynb    # Jupyter notebook to build custom rotation presets
