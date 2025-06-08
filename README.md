@@ -21,7 +21,7 @@ Experiments on the WHU–TLS benchmark and a real UAV survey from Tongjiang quar
 | **WHU–TLS benchmark** | https://3s.whu.edu.cn/ybs/en/benchmark.htm | 115 terrestrial scans used for robustness tests |
 | **Tongjiang Aerial (UAV)** | https://zenodo.org/records/15614501 | 4 missions over active limestone quarry |
 
-You can download the pre-processed datasets from the [Internet Archive](https://archive.org/details/volcal_baseline_pre-processed). The final folder structure should look like this:
+You can download the pre-processed datasets & logs from the [Internet Archive](https://archive.org/details/volcal_baseline). The final folder structure should look like this:
 
 ```text
 .
