@@ -10,6 +10,10 @@ _A data-driven pipeline for large-scale open-pit-mine excavation monitoring from
 > 🎉 The pipeline is now available as a **Service**!\
 > 👉 Check out [volcal\_baseline\_server](https://github.com/deemoe404/volcal_baseline_server) for more information.
 
+> **📢 Announcement (Jul 26, 2025):**\
+> 🎉 The pipeline is now available as a **Android Application**!\
+> 👉 Check out [volcal\_baseline\_android](https://github.com/deemoe404/volcal_baseline_android) for more information.
+
 `volcal_baseline` is the reference implementation that accompanies our paper  
 **“A Data-driven solution for large-scale open-pit mines excavation monitoring based on 3-D point cloud”** published in _IET Image Processing_ (2025). The code turns two (or more) raw point-cloud epochs into sub-percent volumetric change estimates **without manual parameter tuning** by chaining:
 
