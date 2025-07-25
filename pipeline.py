@@ -22,7 +22,7 @@ from shapely.vectorized import contains
 from sklearn.neighbors import KDTree
 from scipy.spatial import cKDTree
 
-current_dir = os.path.abspath(".")
+current_dir = os.path.abspath(os.path.dirname(__file__))
 submodule_dir = os.path.join(current_dir, "exhaustive-grid-search")
 sys.path.append(submodule_dir)
 
