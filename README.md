@@ -74,4 +74,4 @@ Then, open the Jupyter notebooks `exp_WHU-TLS` or `exp_Tongjiang_Aerial` to run 
 
 ## License
 
-This project is released under the MIT License – see `LICENSE` for details.
+This project is released under the Apache-2.0 License – see `LICENSE` for details.
