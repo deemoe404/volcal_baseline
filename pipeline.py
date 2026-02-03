@@ -572,7 +572,7 @@ def isolate_stable(cloud: np.ndarray, shp: gpd.GeoDataFrame, crs: str = "EPSG:43
     np.ndarray: Mask of the stable region
     """
     cloud_gdf = gpd.GeoDataFrame(
-        geometry=gpd.points_from_xy(cloud[:, 0], cloud[:, 1], cloud[:, 2]),
+        geometry=gpd.points_from_xy(cloud[:, 0], cloud[:, 1]),
         crs=crs,
     )
     cloud_shp = gpd.sjoin(cloud_gdf, shp, predicate="within")
@@ -785,6 +785,11 @@ def reletive_DEM(
         dem1[~mask_grid] = np.nan
         dem2[~mask_grid] = np.nan
 
+    nan_ratio_1 = np.isnan(dem1).mean()
+    nan_ratio_2 = np.isnan(dem2).mean()
+    print(f"DEM1 NaN ratio: {nan_ratio_1:.2%}")
+    print(f"DEM2 NaN ratio: {nan_ratio_2:.2%}")
+
     return dem1, dem2, grid_x, grid_y, grid_res
 
 
@@ -806,6 +811,17 @@ def calculate_volume(
     Returns:
     float: Volume difference.
     """
+    valid_before = ~np.isnan(dem_before)
+    valid_after = ~np.isnan(dem_after)
+    single_side_mask = valid_before ^ valid_after
+    single_side_count = np.count_nonzero(single_side_mask)
+    total_cells = dem_before.size
+    ratio_single_side = single_side_count / total_cells if total_cells else 0
+    print(
+        f"Cells with data on only one DEM: {single_side_count} "
+        f"({ratio_single_side:.2%} of grid)"
+    )
+
     diff = dem_after - dem_before
     diff[np.abs(diff) < threshold] = 0
 
